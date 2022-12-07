@@ -5,9 +5,13 @@ import org.springframework.web.client.RestTemplate;
 public class ListagemRestauranteMain {
 
     public static void main(String[] args) {
-        RestTemplate restTemplate = new RestTemplate();
+        try {
+            RestTemplate restTemplate = new RestTemplate();
 
-        RestauranteClient restauranteClient = new RestauranteClient(restTemplate, "http://localhost:8080");
-        restauranteClient.listar().forEach(System.out::println);
+            RestauranteClient restauranteClient = new RestauranteClient(restTemplate, "http://localhost:8080");
+            restauranteClient.listar().forEach(System.out::println);
+        } catch (ClientApiException e) {
+            System.out.println(e.getProblem());
+        }
     }
 }
